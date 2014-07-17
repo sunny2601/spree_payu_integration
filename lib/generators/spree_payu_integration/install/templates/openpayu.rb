@@ -7,7 +7,7 @@ OpenPayU::Configuration.configure do |config|
   config.service_domain   = 'payu.com'
   config.protocol         = 'https'
   config.env              = 'secure'
-  config.order_url        = 'http://localhost:3000/order'
-  config.notify_url       = 'http://localhost:3000/notify'
-  config.continue_url     = 'http://localhost:3000/success'
+  config.order_url        = ''
+  config.notify_url       = ''
+  config.continue_url     = ''
 end
