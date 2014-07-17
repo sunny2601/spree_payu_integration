@@ -37,4 +37,4 @@ Simply add this require statement to your spec_helper:
 require 'spree_payu_integration/factories'
 ```
 
-Copyright (c) 2014 [name of extension creator], released under the New BSD License
+Copyright (c) 2014 [Netguru](http://www.netguru.pl), released under the New BSD License
