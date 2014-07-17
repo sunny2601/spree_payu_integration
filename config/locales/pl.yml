@@ -1,0 +1,2 @@
+pl:
+	order_description: "Zamówienie z %{name}"
