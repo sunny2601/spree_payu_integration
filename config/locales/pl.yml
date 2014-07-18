@@ -1,2 +1,3 @@
+
 pl:
-	order_description: "Zamówienie z %{name}"
+  order_description: "Zamówienie z %{name}"
