@@ -1,5 +1,7 @@
 module Spree
 	class PayuController < Spree::BaseController
+		protect_from_forgery except: [:notify, :continue]
+
 		def notify
 			@response = OpenPayU::Order.consume_notification(request)
 
