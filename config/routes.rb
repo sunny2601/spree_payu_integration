@@ -1,4 +1,4 @@
 Spree::Core::Engine.routes.draw do
-  get '/payu/notify', to: 'payu#notify'
-  get '/payu/continue', to: 'payu#continue'
+  post '/payu/notify', to: 'payu#notify'
+  post '/payu/continue', to: 'payu#continue'
 end
