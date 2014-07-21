@@ -7,20 +7,38 @@ Spree::CheckoutController.class_eval do
   def pay_with_payu
     return unless params[:state] == 'payment'
 
-    @payment_method = Spree::PaymentMethod.find(
+    payment_method = Spree::PaymentMethod.find(
       params[:order][:payments_attributes].first[:payment_method_id]
     )
-    @shipment = @order.shipments.first
-    @shipping_rate = @shipment.shipping_rates.where(selected: true).first
+    shipment = @order.shipments.first
+    shipping_rate = shipment.shipping_rates.where(selected: true).first
 
-    if @payment_method && @payment_method.kind_of?(Spree::PaymentMethod::Payu)
-      @response = OpenPayU::Order.create(
+    if payment_method && payment_method.kind_of?(Spree::PaymentMethod::Payu)
+      response = OpenPayU::Order.create(
         payu_order_params(@order, request)
       )
 
-      case @response.status['status_code']
+      case response.status['status_code']
       when 'SUCCESS'
-        redirect_to @response.redirect_uri
+        persist_user_address
+
+        payment = @order.payments.build(
+          payment_method_id: payment_method.id,
+          amount: @order.total,
+          state: 'checkout'
+        )
+
+        unless payment.save
+          flash[:error] = payment.errors.full_messages.join("\n")
+          redirect_to checkout_state_path(@order.state) and return
+        end
+
+        unless @order.next
+          flash[:error] = @order.errors.full_messages.join("\n")
+          redirect_to checkout_state_path(@order.state) and return
+        end
+
+        redirect_to response.redirect_uri
       else
         @order.errors[:base] << "PayU error: #{@response['status_code']}"
         render :edit
