@@ -19,6 +19,11 @@ bundle
 bundle exec rails g spree_payu_integration:install
 ```
 
+Configuration
+-------------
+
+Don't forget to insert seller account details into `config/initializers/openpayu.rb`
+
 Testing
 -------
 
