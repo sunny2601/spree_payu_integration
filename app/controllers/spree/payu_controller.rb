@@ -8,14 +8,13 @@ module Spree
 			order = Spree::Order.find(order_info['extOrderId'])
 			payment = order.payments.last
 
-			payment.pend! if payment.checkout?
+			if payment.completed?
+				render json: OpenPayU::Order.build_notify_response(response.req_id)
+				return
+			end
 
 			case order_info['status']
-			when 'PENDING'
-				payment.failure!
-			when 'CANCELLED'
-				payment.void!
-			when 'REJECTED'
+			when /CANCELED|REJECTED/
 				payment.failure!
 			when 'COMPLETED'
 				payment.complete!
