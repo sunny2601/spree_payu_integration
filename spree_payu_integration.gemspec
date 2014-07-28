@@ -8,11 +8,9 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
 
   s.author    = 'Sebastian Sito'
-  s.email     = 'sebastian.sito@netguru.pl'
+  s.email     = 'sebastian.sito@netguru.co'
   s.homepage  = 'https://github.com/netguru/spree_payu_integration'
 
-  #s.files       = `git ls-files`.split("\n")
-  #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
@@ -24,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl', '~> 4.2'
   s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'rspec-rails',  '~> 2.13'
+  s.add_development_dependency 'rspec-rails', '~> 2.13'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'simplecov'

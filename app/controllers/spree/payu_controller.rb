@@ -1,29 +1,29 @@
 module Spree
-	class PayuController < Spree::BaseController
-		protect_from_forgery except: [:notify, :continue]
+  class PayuController < Spree::BaseController
+    protect_from_forgery except: [:notify, :continue]
 
-		def notify
-			response = OpenPayU::Order.retrieve(params[:order][:orderId])
-			order_info = response.parsed_data['orders']['orders'].first
-			order = Spree::Order.find(order_info['extOrderId'])
-			payment = order.payments.last
+    def notify
+      response = OpenPayU::Order.retrieve(params[:order][:orderId])
+      order_info = response.parsed_data['orders']['orders'].first
+      order = Spree::Order.find(order_info['extOrderId'])
+      payment = order.payments.last
 
-			if payment.completed?
-				render json: OpenPayU::Order.build_notify_response(response.req_id)
-				return
-			end
+      if payment.completed?
+        render json: OpenPayU::Order.build_notify_response(response.req_id)
+        return
+      end
 
-			case order_info['status']
-			when /CANCELED|REJECTED/
-				payment.failure!
-			when 'COMPLETED'
-				payment.complete!
-			end
+      case order_info['status']
+      when 'CANCELED', 'REJECTED'
+        payment.failure!
+      when 'COMPLETED'
+        payment.complete!
+      end
 
-			render json: OpenPayU::Order.build_notify_response(response.req_id)
-		end
+      render json: OpenPayU::Order.build_notify_response(response.req_id)
+    end
 
-		def continue
-		end
-	end
+    def continue
+    end
+  end
 end

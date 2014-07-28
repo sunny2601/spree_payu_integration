@@ -20,7 +20,7 @@ module SpreePayuIntegration
     config.to_prepare &method(:activate).to_proc
 
     initializer "spree.payu.payment_methods",
-      :after => "spree.register.payment_methods" do |app|
+      after: "spree.register.payment_methods" do |app|
       app.config.spree.payment_methods << Spree::PaymentMethod::Payu
     end
   end

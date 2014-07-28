@@ -1,7 +1,7 @@
 SpreePayuIntegration
 ====================
 
-Introduction goes here.
+Spree integration with OpenPayU payment service.
 
 Installation
 ------------
