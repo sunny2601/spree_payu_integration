@@ -8,7 +8,7 @@ module Spree
       order = Spree::Order.find(order_info['extOrderId'])
       payment = order.payments.last
 
-      unless payment.completed?
+      unless payment.completed? || payment.failed?
         case order_info['status']
         when 'CANCELED', 'REJECTED'
           payment.failure!
