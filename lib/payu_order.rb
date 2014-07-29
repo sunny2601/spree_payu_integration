@@ -2,6 +2,14 @@ class PayuOrder
   include Rails.application.routes.url_helpers
 
   def self.params(order, ip, order_url, notify_url, continue_url)
+    products = order.line_items.map do |li|
+      {
+        name: li.product.name,
+        unit_price: (li.price * 100).to_i,
+        quantity: li.quantity
+      }
+    end
+    
     {
       merchant_pos_id: OpenPayU::Configuration.merchant_pos_id,
       customer_ip: ip,
@@ -25,13 +33,7 @@ class PayuOrder
           country_code: order.bill_address.country.iso
         }
       },
-      products: order.line_items.map { |li|
-        {
-          name: li.product.name,
-          unit_price: (li.price * 100).to_i,
-          quantity: li.quantity
-        }
-      }
+      products: products
     }
   end
 end
