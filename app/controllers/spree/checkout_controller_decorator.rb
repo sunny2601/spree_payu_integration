@@ -11,7 +11,7 @@ Spree::CheckoutController.class_eval do
     payment_method = Spree::PaymentMethod.find(pm_id)
 
     if payment_method && payment_method.kind_of?(Spree::PaymentMethod::Payu)
-      params = PayuOrder.params(@order, request.remote_ip, order_url(@order), payu_notify_url, payu_continue_url)
+      params = PayuOrder.params(@order, request.remote_ip, order_url(@order), payu_notify_url, order_url(@order))
       response = OpenPayU::Order.create(params)
 
       case response.status['status_code']

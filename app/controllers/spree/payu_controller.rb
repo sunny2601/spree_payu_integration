@@ -19,8 +19,5 @@ module Spree
 
       render json: OpenPayU::Order.build_notify_response(response.req_id)
     end
-
-    def continue
-    end
   end
 end
