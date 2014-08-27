@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
 
   s.author    = 'Sebastian Sito'
-  s.email     = 'sebastian.sito@netguru.co'
+  s.email     = 'hi@netguru.co'
   s.homepage  = 'https://github.com/netguru/spree_payu_integration'
 
   s.require_path = 'lib'
