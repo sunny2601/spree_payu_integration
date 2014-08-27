@@ -9,12 +9,16 @@ class PayuOrder
         quantity: li.quantity
       }
     end
-    
+
+    description = I18n.t('order_description',
+      name: Spree::Config.site_name)
+    description = I18n.transliterate(description)
+
     {
       merchant_pos_id: OpenPayU::Configuration.merchant_pos_id,
       customer_ip: ip,
       ext_order_id: order.id,
-      description: I18n.t('order_description', name: Spree::Config.site_name),
+      description: description,
       currency_code: 'PLN',
       total_amount: (order.total * 100).to_i,
       order_url: order_url,
