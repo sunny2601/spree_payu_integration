@@ -4,6 +4,8 @@ module Spree
       false
     end
 
+    def cancel(response); end
+
     def source_required?
       false
     end
