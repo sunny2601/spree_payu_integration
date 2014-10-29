@@ -19,7 +19,7 @@ class PayuOrder
       customer_ip: ip,
       ext_order_id: order.id,
       description: description,
-      currency_code: 'PLN',
+      currency_code: order.currency,
       total_amount: (order.total * 100).to_i,
       order_url: order_url,
       notify_url: notify_url,
