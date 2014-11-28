@@ -4,10 +4,23 @@ module Spree
       false
     end
 
-    def cancel(response); end
+    def cancel(*)
+    end
 
     def source_required?
       false
+    end
+
+    def credit(*)
+      self
+    end
+
+    def success?
+      true
+    end
+
+    def authorization
+      self
     end
   end
 end
